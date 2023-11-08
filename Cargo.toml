@@ -1,0 +1,38 @@
+[package]
+name = "pico-usb"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.release]
+lto = true
+strip = "symbols"
+
+[dependencies]
+defmt = { version = "0.3.5", features = ["ip_in_core"] }
+defmt-rtt = "0.4.0"
+panic-probe = { version = "0.3.1", features = [
+  "defmt",
+  "defmt-error",
+  "print-defmt",
+] }
+
+rp-pico = "0.8.0"
+usb-device = { version = "0.2.9", features = ["defmt"] }
+usbd-hid = { version = "0.6.1", features = ["defmt"] }
+
+rtic = { version = "2.0.1", features = [
+  "cortex-m",
+  "rtic-monotonics",
+  "thumbv6-backend",
+] }
+rtic-monotonics = { version = "1.2.0", features = ["defmt", "rp2040"] }
+cortex-m = { version = "0.7.7", features = [
+  "inline-asm",
+  "linker-plugin-lto",
+  "critical-section",
+] }
+
+[dev-dependencies]
+defmt-test = "0.3.1"
